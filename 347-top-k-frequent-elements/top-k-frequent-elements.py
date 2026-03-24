@@ -1,24 +1,19 @@
 class Solution(object):
     def topKFrequent(self, nums, k):
-        counter = {}
+        count = {}
 
-        for i in nums:
-            if i in counter:
-                counter[i] += 1
-            else:
-                counter[i] = 1
+        for n in nums:
+            count[n] = 1 + count.get(n, 0)
 
-        result = []
-        while k > 0:
-            key = None
-            max = -1
-            for j in counter.keys():
-                if max < counter[j]:
-                    max = counter[j]
-                    key = j
+        freq = [[] for _ in range(len(nums) + 1)]
 
-            del counter[key]
-            result.append(key)
-            k -= 1
+        for n, c in count.items():
+            freq[c].append(n)
 
-        return result
+        res = []
+
+        for i in range(len(freq)-1, 0, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
