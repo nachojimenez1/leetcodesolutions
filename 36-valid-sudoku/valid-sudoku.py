@@ -1,30 +1,29 @@
 class Solution(object):
     def isValidSudoku(self, board):
-        visited_cols = [[] for _ in range(9)]
-        visited_rows = [[] for _ in range(9)]
-        visited_3x3 = [[] for _ in range(9)]
+
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        boxes = [set() for _ in range(9)]
 
         for i in range(9):
             for j in range(9):
-                elem = board[i][j]
 
-                if elem != ".":
+                val = board[i][j]
 
-                    # columna
-                    if elem in visited_cols[j]:
-                        return False
-                    visited_cols[j].append(elem)
+                if val == ".":
+                    continue
 
-                    # fila
-                    if elem in visited_rows[i]:
-                        return False
-                    visited_rows[i].append(elem)
+                box = (i // 3) * 3 + (j // 3)
 
-                    # bloque 3x3
-                    box = (i // 3) * 3 + (j // 3)
+                if val in rows[i]:
+                    return False
+                if val in cols[j]:
+                    return False
+                if val in boxes[box]:
+                    return False
 
-                    if elem in visited_3x3[box]:
-                        return False
-                    visited_3x3[box].append(elem)
+                rows[i].add(val)
+                cols[j].add(val)
+                boxes[box].add(val)
 
         return True
