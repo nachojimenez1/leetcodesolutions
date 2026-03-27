@@ -3,7 +3,7 @@ class Solution(object):
         if len(nums) == 0:
             return 0
         
-        nums_sorted = sorted(set(nums))  # ✅ fix here
+        nums_sorted = sorted(set(nums)) 
         
         count = 1
         max1 = 1
