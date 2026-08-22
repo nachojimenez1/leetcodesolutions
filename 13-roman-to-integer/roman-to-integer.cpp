@@ -2,7 +2,6 @@ class Solution {
 public:
     int romanToInt(string s) {
         int valores[256] = {};
-        
         valores['I'] = 1;
         valores['V'] = 5;
         valores['X'] = 10;
@@ -11,15 +10,22 @@ public:
         valores['D'] = 500;
         valores['M'] = 1000;
 
-        int res = 0;
-
-        for (int i = 0; i < s.length(); i++) {
-            if (valores[s[i]] < valores[s[i + 1]])
-                res -= valores[s[i]];
-            else
-                res += valores[s[i]];
+        int primero = valores[s[s.length()-1]];
+        int res = primero;
+        int segundo;
+        for(int i = s.length()-2; i >= 0; i--){
+            segundo = valores[s[i]];
+            
+            if(segundo >= primero){
+                res += segundo;
+            }
+            else{
+                res -= segundo;    
+            }
+            
+            primero = segundo;
+            
         }
-
         return res;
 
     }
