@@ -2,24 +2,31 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
 
-        std::string res = "";
-            int max = 0;
-            int pos;
-            for(int i = 0; i<s.length(); i++){
-                pos = res.find(s[i]);
-                if(pos != std::string::npos){
-                    if(res.length() > max){
-                        max = res.length();
-                    }
-                    res.erase(0,pos+1);
+        bool visto[256] = {};
+        int max = 0;
+        int left = 0;
+        int right = 0;
+
+        while(right < s.length()){
+            if(visto[s[right]] == false){
+                visto[s[right]] = true;
+                right++;
+            }else{
+                if(max < right - left){
+                    max = right - left;
                 }
-                res += s[i];
-                
+                while(visto[s[right]]){
+                    visto[s[left]] = false;
+                    left++; 
+                }
+                visto[s[right]] = true;
+                right++;
             }
-            if(res.length() > max){
-                max = res.length();
-            }
-            return max;
+        }
+        if(max < right - left){
+            max = right - left;
+        }
+        return max;
         
     }
 };
