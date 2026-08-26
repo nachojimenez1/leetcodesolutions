@@ -20,7 +20,7 @@ public:
         return res;
     }
 
-    std::string expandir(int i, int j, std::string s){
+    std::string expandir(int i, int j, std::string& s){
         std::string izq = "";
         std::string der = "";
 
