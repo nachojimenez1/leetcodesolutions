@@ -33,7 +33,6 @@ class Solution(object):
                     for _ in range(size):
                         current = current.next
                     
-
                     new_head = current.next
                     current.next = None
                     current = new_head
